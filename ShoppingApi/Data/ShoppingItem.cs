@@ -12,5 +12,6 @@ namespace ShoppingApi.Data
         public bool Purchased { get; set; }
 
         public string PurchasedFrom { get; set; }
+        public string PurchasedBy { get; set; }
     }
 }

@@ -23,5 +23,12 @@ namespace ShoppingApi.Data
         {
             optionsBuilder.UseLoggerFactory(LoggerFactory);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ShoppingItem>().HasData(
+                new ShoppingItem { Id=1, Description="Beer", Purchased = false},
+                new ShoppingItem { Id=2, Description="Toilet Paper", Purchased=true, PurchasedFrom="Acme"}
+                );
+        }
     }
 }

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoppingApi.Data;
 
 namespace ShoppingApi.Migrations
 {
     [DbContext(typeof(ShoppingDataContext))]
-    partial class ShoppingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200504204427_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace ShoppingApi.Migrations
 
                     b.Property<bool>("Purchased")
                         .HasColumnType("bit");
-
-                    b.Property<string>("PurchasedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PurchasedFrom")
                         .HasColumnType("nvarchar(max)");
