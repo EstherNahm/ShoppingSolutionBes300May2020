@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShoppingApi.Data;
 using ShoppingApi.Mappers;
 using ShoppingApi.Models;
 using System;
@@ -12,6 +13,11 @@ namespace ShoppingApi.Controllers
     {
         private readonly IMapCurbsideOrders CurbsideMapper;
 
+        public CurbsideOrdersController(IMapCurbsideOrders curbsideMapper)
+        {
+            CurbsideMapper = curbsideMapper;
+        }
+
         [HttpPost("curbsideorders")]
         public async Task<ActionResult> PlaceOrder([FromBody] CreateCurbsideOrder orderToPlace)
         {
@@ -22,10 +28,7 @@ namespace ShoppingApi.Controllers
             //      Location Header with the location of the new resource
             //      A copy of the entity they would get if they did a GET to the location
             CurbsideOrder response = await CurbsideMapper.PlaceOrder(orderToPlace);
-
-
-          
-            return Ok();
+            return Ok(response);
         }
     }
 }

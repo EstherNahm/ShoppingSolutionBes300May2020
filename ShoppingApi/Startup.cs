@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ShoppingApi.Data;
+using ShoppingApi.Mappers;
 
 namespace ShoppingApi
 {
@@ -48,6 +49,7 @@ namespace ShoppingApi
 
             services.AddSingleton<IMapper>(mapper);
             services.AddSingleton<MapperConfiguration>(mappingConfig);
+            services.AddTransient<IMapCurbsideOrders, EfCurbsideMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
