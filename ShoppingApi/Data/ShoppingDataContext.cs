@@ -18,7 +18,7 @@ namespace ShoppingApi.Data
             LoggerFactory = loggerFactory;
         }
         public DbSet<ShoppingItem> ShoppingItems { get; set; }
-
+        public DbSet<OrderForCurbside> CurbsideOrders { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(LoggerFactory);
