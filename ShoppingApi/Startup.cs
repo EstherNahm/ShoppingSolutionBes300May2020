@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ShoppingApi.Data;
 using ShoppingApi.Mappers;
+using ShoppingApi.Services;
 
 namespace ShoppingApi
 {
@@ -32,6 +34,7 @@ namespace ShoppingApi
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.IgnoreNullValues = true;
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
             services.AddDbContext<ShoppingDataContext>(options =>
             {
@@ -50,6 +53,8 @@ namespace ShoppingApi
             services.AddSingleton<IMapper>(mapper);
             services.AddSingleton<MapperConfiguration>(mappingConfig);
             services.AddTransient<IMapCurbsideOrders, EfCurbsideMapper>();
+            services.AddSingleton<CurbsideChannel>(); // Defers the creation until we need it.
+            services.AddHostedService<CurbsideOrderProcessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

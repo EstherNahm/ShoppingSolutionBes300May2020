@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ShoppingApi.Data;
+using System.Collections.Generic;
 
 namespace ShoppingApi.Models
 {
@@ -7,6 +8,7 @@ namespace ShoppingApi.Models
         public int Id { get; set; }
         public string For { get; set; }
         public List<string> Items { get; set; }
+        public CurbsideOrderStatus Status { get; set; }
     }
 
 }

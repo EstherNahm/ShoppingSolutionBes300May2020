@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ShoppingApi.Data;
 using ShoppingApi.Migrations;
 using ShoppingApi.Models;
@@ -24,6 +25,19 @@ namespace ShoppingApi.Mappers
             MapperConfig = mapperConfig;
         }
 
+        async Task<CurbsideOrder> IMapCurbsideOrders.GetOrderById(int id)
+        {
+            var order = await DataContext.CurbsideOrders.SingleOrDefaultAsync(order => order.Id == id);
+            // TODO: Use the ProjectTo<> here but I didn't inject the mapper configure and it's 3:27.
+            if(order == null)
+            {
+                return null;
+            } else
+            {
+                return Mapper.Map<CurbsideOrder>(order);
+            }
+        }
+
         async Task<CurbsideOrder> IMapCurbsideOrders.PlaceOrder(CreateCurbsideOrder orderToPlace)
         {
 
@@ -31,12 +45,7 @@ namespace ShoppingApi.Mappers
             DataContext.CurbsideOrders.Add(order);
             await DataContext.SaveChangesAsync();
             var response = Mapper.Map<CurbsideOrder>(order);
-            response.Items = order.Items.Split(",").ToList();
-            // Process each of the items.
-            foreach(var item in response.Items)
-            {
-                Thread.Sleep(1000);
-            }
+
             return response;
 
         }

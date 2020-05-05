@@ -9,5 +9,6 @@ namespace ShoppingApi.Mappers
     public interface IMapCurbsideOrders
     {
         Task<CurbsideOrder> PlaceOrder(CreateCurbsideOrder orderToPlace);
+        Task<CurbsideOrder> GetOrderById(int id);
     }
 }
