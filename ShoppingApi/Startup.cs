@@ -53,7 +53,8 @@ namespace ShoppingApi
                 });
             services.AddDbContext<ShoppingDataContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("shopping"));
+                options.UseSqlite("Data Source=shopping.db");
+                // options.UseSqlServer(Configuration.GetConnectionString("shopping"));
             });
 
             //services.AddAutoMapper(typeof(Startup)); // do a little more.
